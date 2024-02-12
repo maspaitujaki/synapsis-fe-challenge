@@ -40,9 +40,9 @@ export default function RootLayout({
             </nav>
           </div>
         </header>
-        <main>
+        <div className="max-w-6xl mx-auto py-4 px-8">
           {children}
-        </main>
+        </div>
       </body>
     </html>
   );

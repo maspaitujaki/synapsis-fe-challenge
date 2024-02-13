@@ -61,7 +61,6 @@ function userListSettingToUrl(listUserSetting: ListUserSetting): string {
 }
 
 export async function getUserList(listUserSetting: ListUserSetting): Promise<User[]> {
-  console.log(process.env.NEXT_PUBLIC_GOREST_TOKEN)
   const res = await fetch(userListSettingToUrl(listUserSetting),{
     headers: {
       'Accept': 'application/json',

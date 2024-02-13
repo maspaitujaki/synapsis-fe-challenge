@@ -96,12 +96,15 @@ function EditUserModal({open, setOpen, user, setUsers}: {open:boolean, setOpen: 
   const updateUserWithId = updateUser.bind(null, user.id)
   const [state, formAction] = useFormState(updateUserWithId, initialState)
   useEffect(() => {
-    if (state.user !== undefined) setUsers(users => {
-      return [state.user, ...users.filter(iUser => iUser.id !== state.user.id)]
-    });
-  }, [setUsers, state.user])
+    if (state.user !== undefined) {
+      setUsers(users => {
+        return [state.user, ...users.filter(iUser => iUser.id !== state.user.id)]
+      });
+      setOpen(false)
+    }
+  }, [setOpen, setUsers, state.user])
   return (
-    <Modal open={open && !state.success} setOpen={setOpen}>
+    <Modal open={open} setOpen={setOpen}>
       <form id='edit-user-form' action={formAction}>
       <ModalBody>
         <ModalHead>
@@ -159,10 +162,13 @@ function EditUserModal({open, setOpen, user, setUsers}: {open:boolean, setOpen: 
 function CreateUserModal({open, setOpen, setUsers}: {open:boolean, setOpen: Dispatch<SetStateAction<boolean>>, setUsers: Dispatch<SetStateAction<User[]>>}) {
   const [state, formAction] = useFormState(createUser, initialState)
   useEffect(() => {
-    if (state.user !== undefined) setUsers(users => [state.user,...users]);
-  }, [setUsers, state.user])
+    if (state.user !== undefined) {
+      setUsers(users => [state.user,...users])
+      setOpen(false)
+    };
+  }, [setOpen, setUsers, state.user])
   return (
-    <Modal open={open && !state.success} setOpen={setOpen}>
+    <Modal open={open} setOpen={setOpen}>
       <form id='create-user-form' action={formAction}>
       <ModalBody>
         <ModalHead>

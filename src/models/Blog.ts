@@ -25,7 +25,7 @@ export async function getBlogDetail(blog_id:string): Promise<Blog> {
   const res = await fetch(`https://gorest.co.in/public/v2/posts/${blog_id}`,{
     headers: {
       'Accept': 'application/json',
-      'Authorization': `Bearer ${process.env.gorest_token}`
+      'Authorization': `Bearer ${process.env.NEXT_PUBLIC_GOREST_TOKEN}`
     }
   })
   if (!res.ok) {
@@ -41,7 +41,7 @@ export async function getBlogComments(blog_id:string): Promise<Comment[]> {
   const res = await fetch(`https://gorest.co.in/public/v2/posts/${blog_id}/comments`,{
     headers: {
       'Accept': 'application/json',
-      'Authorization': `Bearer ${process.env.gorest_token}`
+      'Authorization': `Bearer ${process.env.NEXT_PUBLIC_GOREST_TOKEN}`
     }
   })
   if (!res.ok) {
@@ -55,7 +55,7 @@ export async function getBlogs(page: string): Promise<Blog[]>{
   const res = await fetch(`https://gorest.co.in/public/v2/posts?page=${page}&per_page=5`,{
     headers: {
       'Accept': 'application/json',
-      'Authorization': `Bearer ${process.env.gorest_token}`
+      'Authorization': `Bearer ${process.env.NEXT_PUBLIC_GOREST_TOKEN}`
     }
   })
   if (!res.ok) {

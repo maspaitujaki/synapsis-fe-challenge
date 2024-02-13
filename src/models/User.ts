@@ -19,7 +19,7 @@ export async function getUserDetail(user_id: number): Promise<User>{
   const res = await fetch(`https://gorest.co.in/public/v2/users/${user_id}`,{
     headers: {
       'Accept': 'application/json',
-      'Authorization': `Bearer ${process.env.gorest_token}`
+      'Authorization': `Bearer ${process.env.NEXT_PUBLIC_GOREST_TOKEN}`
     }
   })
   if (!res.ok) {
@@ -61,11 +61,11 @@ function userListSettingToUrl(listUserSetting: ListUserSetting): string {
 }
 
 export async function getUserList(listUserSetting: ListUserSetting): Promise<User[]> {
-
+  console.log(process.env.NEXT_PUBLIC_GOREST_TOKEN)
   const res = await fetch(userListSettingToUrl(listUserSetting),{
     headers: {
       'Accept': 'application/json',
-      'Authorization': `Bearer ${process.env.gorest_token}`
+      'Authorization': `Bearer ${process.env.NEXT_PUBLIC_GOREST_TOKEN}`
     }
   })
   if (!res.ok) {

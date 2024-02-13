@@ -1,6 +1,3 @@
-import BlogPostCard from "@/components/BlogPostCard";
-import { Blog } from "@/models/Blog";
-
 export default async function Home() {
   return (
     <div className="flex items-center justify-center border rounded h-screen">

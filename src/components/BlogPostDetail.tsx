@@ -1,4 +1,5 @@
 import { Blog, Comment } from "@/models/Blog"
+import { User } from "@/models/User"
 
 async function getBlogDetail(blog_id:string): Promise<Blog> {
   const res = await fetch(`https://gorest.co.in/public/v2/posts/${blog_id}`)
@@ -20,6 +21,15 @@ async function getBlogComments(blog_id:string): Promise<Comment[]> {
   return res.json()
 }
 
+async function getUserDetail(user_id: number): Promise<User>{
+  const res = await fetch(`https://gorest.co.in/public/v2/users/${user_id}`)
+  if (!res.ok) {
+    throw new Error('Failed to fetch data')
+  }
+ 
+  return res.json()
+}
+
 function CommentCard({comment}: {comment: Comment}) {
   return (
     <div className="py-2 border-b space-y-2">
@@ -32,12 +42,19 @@ function CommentCard({comment}: {comment: Comment}) {
 export default async function BlogPostDetail({blog_id}: {blog_id: string}) {
   const blog = await getBlogDetail(blog_id);
   const comments = await getBlogComments(blog_id);
+  let username = "";
+  try {
+    const user = await getUserDetail(blog.user_id);
+    username = `${user.name} @${user.id}`
+  } catch (error) {
+    username = `@${blog.user_id}`
+  }
   return (
     <div className="border rounded p-2 space-y-2">
       <section>
         <h1 className="font-sans mt-2 mb-4 font-bold text-3xl">{blog.title}</h1>
         <p className="mt-2 mb-4 font-serif text-lg">{blog.body}</p>
-        <p>By @{blog.user_id}</p>
+        <p>By {username}</p>
       </section>
       <section>
         <p className="font-serif font-semibold text-xl">Comments ({comments.length})</p>

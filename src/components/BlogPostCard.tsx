@@ -12,7 +12,7 @@ async function getUserDetail(user_id: number): Promise<User>{
   return res.json()
 }
 
-export default async function BlogPostCard( {blog} : {blog: Blog}) {
+export default async function BlogPostCard({blog, page} : {blog: Blog, page:string}) {
   let username = "";
   try {
     const user = await getUserDetail(blog.user_id);
@@ -23,7 +23,7 @@ export default async function BlogPostCard( {blog} : {blog: Blog}) {
   return (
     <article>
       <div className="p-2 border rounded shadow hover:shadow-md">
-        <Link href={`/blogs/${blog.id}`}>
+        <Link href={`/blogs/${page}/${blog.id}`}>
           <p className="font-semibold text-xl">{blog.title}</p>
           <p className="text-slate-500">{username}</p>
         </Link>

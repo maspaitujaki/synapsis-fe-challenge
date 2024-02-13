@@ -22,9 +22,9 @@ export default async function BlogPostCard( {blog} : {blog: Blog}) {
   }
   return (
     <article>
-      <div className="p-2 border rounded shadow max-w-xl hover:shadow-md">
-        <Link href='/'>
-          <h2 className="font-semibold text-xl">{blog.title}</h2>
+      <div className="p-2 border rounded shadow hover:shadow-md">
+        <Link href={`/blogs/${blog.id}`}>
+          <p className="font-semibold text-xl">{blog.title}</p>
           <p className="text-slate-500">{username}</p>
         </Link>
       </div>

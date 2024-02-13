@@ -4,7 +4,8 @@ import { ListUserSetting, User, getUserList } from "@/models/User"
 import { Dispatch, SetStateAction, useCallback, useEffect, useState } from "react"
 import Image from "next/image";
 import { createUser, deleteUser, updateUser } from "./action";
-import { useFormState, useFormStatus } from "react-dom";
+import { useFormState } from "react-dom";
+import { SubmitButton } from "@/components/SubmitButton";
 
 function UserTableRow({user, setUsers}: {user: User, setUsers: Dispatch<SetStateAction<User[]>>}) {
   const [open, setOpen] = useState(false);
@@ -94,7 +95,6 @@ const initialState = {
 function EditUserModal({open, setOpen, user, setUsers}: {open:boolean, setOpen: Dispatch<SetStateAction<boolean>>, user: User, setUsers: Dispatch<SetStateAction<User[]>>}) {
   const updateUserWithId = updateUser.bind(null, user.id)
   const [state, formAction] = useFormState(updateUserWithId, initialState)
-  const { pending } = useFormStatus()
   useEffect(() => {
     if (state.user !== undefined) setUsers(users => {
       return [state.user, ...users.filter(iUser => iUser.id !== state.user.id)]
@@ -102,12 +102,13 @@ function EditUserModal({open, setOpen, user, setUsers}: {open:boolean, setOpen: 
   }, [setUsers, state.user])
   return (
     <Modal open={open && !state.success} setOpen={setOpen}>
+      <form id='edit-user-form' action={formAction}>
       <ModalBody>
         <ModalHead>
           Edit @{user.id}&apos;s info
         </ModalHead>
         <ModalContent>
-          <form id='create-user-form' className="grid grid-cols-3 gap-2" action={formAction}>
+          <div className="grid grid-cols-3 gap-2">
             <div className="flex items-center">
               <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-700">Name</label>
             </div>
@@ -132,7 +133,7 @@ function EditUserModal({open, setOpen, user, setUsers}: {open:boolean, setOpen: 
               <option value="active">Active</option>
               <option value="inactive">Inactive</option>
             </select>
-          </form>
+          </div>
           <p className="text-red-400">
             {state && state.error && state.message}
           </p>
@@ -144,39 +145,31 @@ function EditUserModal({open, setOpen, user, setUsers}: {open:boolean, setOpen: 
             type="button"
             className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
             onClick={() => setOpen(false)}
-          >
+            >
             Cancel
           </button>
-          <button
-            disabled={pending}
-            form="create-user-form"
-            type="submit"
-            className="inline-flex w-full justify-center rounded-md bg-zinc-700 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-zinc-600 sm:ml-3 sm:w-auto"
-          >
-            {
-              pending? "Submitting..." : "Submit"
-            }
-          </button>
+          <SubmitButton/>
         </div>
       </ModalFooter>
+      </form>
     </Modal>
   )
 }
 
 function CreateUserModal({open, setOpen, setUsers}: {open:boolean, setOpen: Dispatch<SetStateAction<boolean>>, setUsers: Dispatch<SetStateAction<User[]>>}) {
   const [state, formAction] = useFormState(createUser, initialState)
-  const { pending } = useFormStatus()
   useEffect(() => {
     if (state.user !== undefined) setUsers(users => [state.user,...users]);
   }, [setUsers, state.user])
   return (
     <Modal open={open && !state.success} setOpen={setOpen}>
+      <form id='create-user-form' action={formAction}>
       <ModalBody>
         <ModalHead>
           Create New User
         </ModalHead>
         <ModalContent>
-          <form id='create-user-form' className="grid grid-cols-3 gap-2" action={formAction}>
+          <div className="grid grid-cols-3 gap-2">
             <div className="flex items-center">
               <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-700">Name</label>
             </div>
@@ -201,10 +194,11 @@ function CreateUserModal({open, setOpen, setUsers}: {open:boolean, setOpen: Disp
               <option value="active">Active</option>
               <option value="inactive">Inactive</option>
             </select>
-          </form>
+          </div>
           <p className="text-red-400">
             {state && state.error && state.message}
           </p>
+
         </ModalContent>
       </ModalBody>
       <ModalFooter>
@@ -213,21 +207,13 @@ function CreateUserModal({open, setOpen, setUsers}: {open:boolean, setOpen: Disp
             type="button"
             className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
             onClick={() => setOpen(false)}
-          >
+            >
             Cancel
           </button>
-          <button
-            disabled={pending}
-            form="create-user-form"
-            type="submit"
-            className="inline-flex w-full justify-center rounded-md bg-zinc-700 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-zinc-600 sm:ml-3 sm:w-auto"
-          >
-            {
-              pending? "Submitting..." : "Submit"
-            }
-          </button>
+          <SubmitButton/>
         </div>
       </ModalFooter>
+      </form>
     </Modal>
   )
 }

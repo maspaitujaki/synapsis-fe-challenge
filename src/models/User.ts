@@ -16,7 +16,12 @@ export interface ListUserSetting {
 }
 
 export async function getUserDetail(user_id: number): Promise<User>{
-  const res = await fetch(`https://gorest.co.in/public/v2/users/${user_id}`)
+  const res = await fetch(`https://gorest.co.in/public/v2/users/${user_id}`,{
+    headers: {
+      'Accept': 'application/json',
+      'Authorization': 'Bearer c37216f918615142b0667c67dd95cc3d59b0cb39731c5623e2a7c3c6fb1ef18f'
+    }
+  })
   if (!res.ok) {
     throw new Error('Failed to fetch data')
   }
@@ -57,9 +62,16 @@ function userListSettingToUrl(listUserSetting: ListUserSetting): string {
 
 export async function getUserList(listUserSetting: ListUserSetting): Promise<User[]> {
 
-  const res = await fetch(userListSettingToUrl(listUserSetting))
+  const res = await fetch(userListSettingToUrl(listUserSetting),{
+    headers: {
+      'Accept': 'application/json',
+      'Authorization': 'Bearer c37216f918615142b0667c67dd95cc3d59b0cb39731c5623e2a7c3c6fb1ef18f'
+    }
+  })
   if (!res.ok) {
     throw new Error('Failed to fetch data')
   }
-  return res.json()
+  const c = await res.json()
+  console.log(c)
+  return c
 }

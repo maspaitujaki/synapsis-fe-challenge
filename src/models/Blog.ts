@@ -22,7 +22,12 @@ export interface Comment {
 }
 
 export async function getBlogDetail(blog_id:string): Promise<Blog> {
-  const res = await fetch(`https://gorest.co.in/public/v2/posts/${blog_id}`)
+  const res = await fetch(`https://gorest.co.in/public/v2/posts/${blog_id}`,{
+    headers: {
+      'Accept': 'application/json',
+      'Authorization': 'Bearer c37216f918615142b0667c67dd95cc3d59b0cb39731c5623e2a7c3c6fb1ef18f'
+    }
+  })
   if (!res.ok) {
     if (res.status === 404) {
       throw new Error('Blog not found')
@@ -33,7 +38,12 @@ export async function getBlogDetail(blog_id:string): Promise<Blog> {
 }
 
 export async function getBlogComments(blog_id:string): Promise<Comment[]> {
-  const res = await fetch(`https://gorest.co.in/public/v2/posts/${blog_id}/comments`)
+  const res = await fetch(`https://gorest.co.in/public/v2/posts/${blog_id}/comments`,{
+    headers: {
+      'Accept': 'application/json',
+      'Authorization': 'Bearer c37216f918615142b0667c67dd95cc3d59b0cb39731c5623e2a7c3c6fb1ef18f'
+    }
+  })
   if (!res.ok) {
     throw new Error('Failed to Comments')
   }
@@ -42,7 +52,12 @@ export async function getBlogComments(blog_id:string): Promise<Comment[]> {
 }
 
 export async function getBlogs(page: string): Promise<Blog[]>{
-  const res = await fetch(`https://gorest.co.in/public/v2/posts?page=${page}&per_page=5`,{cache:'no-store'})
+  const res = await fetch(`https://gorest.co.in/public/v2/posts?page=${page}&per_page=5`,{
+    headers: {
+      'Accept': 'application/json',
+      'Authorization': 'Bearer c37216f918615142b0667c67dd95cc3d59b0cb39731c5623e2a7c3c6fb1ef18f'
+    }
+  })
   if (!res.ok) {
     throw new Error('Failed to fetch data')
   }

@@ -28,16 +28,16 @@ export function ModalHead({children}: {children:React.ReactNode}) {
 export function ModalContent({children}: {children:React.ReactNode}) {
   return (
     <div className="mt-2">
-      <p className="text-sm text-gray-500">
+      <div className="text-sm text-gray-500">
         {children}
-      </p>
+      </div>
     </div>
   )
 }
 
 export function ModalFooter({children}: {children:React.ReactNode}) {
   return (
-    <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+    <div className="bg-gray-50 px-4 py-3">
       {children}
     </div>
   )

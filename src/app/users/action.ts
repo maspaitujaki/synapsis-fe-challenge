@@ -11,7 +11,7 @@ export async function createUser(prevState: any, formData: FormData){
     method: 'POST',
     headers: {
       'Accept': 'application/json',
-      'Authorization': 'Bearer c37216f918615142b0667c67dd95cc3d59b0cb39731c5623e2a7c3c6fb1ef18f',
+      'Authorization': `Bearer ${process.env.gorest_token}`,
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(rawFormData)
@@ -38,7 +38,7 @@ export async function updateUser(user_id: number, prevState: any, formData: Form
     method: 'PUT',
     headers: {
       'Accept': 'application/json',
-      'Authorization': 'Bearer c37216f918615142b0667c67dd95cc3d59b0cb39731c5623e2a7c3c6fb1ef18f',
+      'Authorization': `Bearer ${process.env.gorest_token}`,
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(rawFormData)
@@ -59,7 +59,7 @@ export async function deleteUser(user_id: string) {
     method: 'DELETE',
     headers: {
       'Accept': 'application/json',
-      'Authorization': 'Bearer c37216f918615142b0667c67dd95cc3d59b0cb39731c5623e2a7c3c6fb1ef18f',
+      'Authorization': `Bearer ${process.env.gorest_token}`,
       'Content-Type': 'application/json',
     },
   })

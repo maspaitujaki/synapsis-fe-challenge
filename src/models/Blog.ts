@@ -20,3 +20,31 @@ export interface Comment {
   email: string,
   body: string
 }
+
+export async function getBlogDetail(blog_id:string): Promise<Blog> {
+  const res = await fetch(`https://gorest.co.in/public/v2/posts/${blog_id}`)
+  if (!res.ok) {
+    if (res.status === 404) {
+      throw new Error('Blog not found')
+    }
+    throw new Error('Failed to fetch data')
+  }
+  return res.json()
+}
+
+export async function getBlogComments(blog_id:string): Promise<Comment[]> {
+  const res = await fetch(`https://gorest.co.in/public/v2/posts/${blog_id}/comments`)
+  if (!res.ok) {
+    throw new Error('Failed to Comments')
+  }
+ 
+  return res.json()
+}
+
+export async function getBlogs(page: string): Promise<Blog[]>{
+  const res = await fetch(`https://gorest.co.in/public/v2/posts?page=${page}&per_page=5`,{cache:'no-store'})
+  if (!res.ok) {
+    throw new Error('Failed to fetch data')
+  }
+  return res.json()
+}

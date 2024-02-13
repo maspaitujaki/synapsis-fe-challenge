@@ -1,16 +1,6 @@
 import { Blog } from "@/models/Blog"
-import { User } from "@/models/User"
+import { getUserDetail } from "@/models/User"
 import Link from "next/link"
-
-
-async function getUserDetail(user_id: number): Promise<User>{
-  const res = await fetch(`https://gorest.co.in/public/v2/users/${user_id}`)
-  if (!res.ok) {
-    throw new Error('Failed to fetch data')
-  }
- 
-  return res.json()
-}
 
 export default async function BlogPostCard({blog, page} : {blog: Blog, page:string}) {
   let username = "";

@@ -28,6 +28,7 @@ export default function RootLayout({
                   className=""
                   width={150}
                   height={150}
+                  priority
                 />
               </Link>
               <div className="flex items-center space-x-6">

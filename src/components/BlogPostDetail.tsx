@@ -1,34 +1,5 @@
-import { Blog, Comment } from "@/models/Blog"
-import { User } from "@/models/User"
-
-async function getBlogDetail(blog_id:string): Promise<Blog> {
-  const res = await fetch(`https://gorest.co.in/public/v2/posts/${blog_id}`)
-  if (!res.ok) {
-    if (res.status === 404) {
-      throw new Error('Blog not found')
-    }
-    throw new Error('Failed to fetch data')
-  }
-  return res.json()
-}
-
-async function getBlogComments(blog_id:string): Promise<Comment[]> {
-  const res = await fetch(`https://gorest.co.in/public/v2/posts/${blog_id}/comments`)
-  if (!res.ok) {
-    throw new Error('Failed to Comments')
-  }
- 
-  return res.json()
-}
-
-async function getUserDetail(user_id: number): Promise<User>{
-  const res = await fetch(`https://gorest.co.in/public/v2/users/${user_id}`)
-  if (!res.ok) {
-    throw new Error('Failed to fetch data')
-  }
- 
-  return res.json()
-}
+import { Comment, getBlogComments, getBlogDetail } from "@/models/Blog"
+import { getUserDetail } from "@/models/User"
 
 function CommentCard({comment}: {comment: Comment}) {
   return (

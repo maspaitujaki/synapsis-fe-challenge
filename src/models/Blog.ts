@@ -53,11 +53,12 @@ export async function getBlogComments(blog_id:string): Promise<Comment[]> {
 
 export async function getBlogs(page: string): Promise<Blog[]>{
   const res = await fetch(`https://gorest.co.in/public/v2/posts?page=${page}&per_page=5`,{
+    cache:'no-store',
     headers: {
       'Accept': 'application/json',
       'Authorization': `Bearer ${process.env.NEXT_PUBLIC_GOREST_TOKEN}`
     }
-  })
+  } )
   if (!res.ok) {
     throw new Error('Failed to fetch data')
   }
